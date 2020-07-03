@@ -13,7 +13,7 @@ class CreativeWorkDetailViewController: UIViewController {
       return
     }
 
-    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    UIApplication.shared.open(url)
   }
 
   var work: CreativeWork! {
