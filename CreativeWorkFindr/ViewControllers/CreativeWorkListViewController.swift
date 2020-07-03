@@ -4,8 +4,10 @@ class CreativeWorkListViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
 
   var results = (books: [Book](), movies: [Movie]())
+  var animator = TableViewAnimator()
   var state: SearchState = .notStarted {
     didSet {
+      animator.reset()
       updateResults()
     }
   }
@@ -35,6 +37,7 @@ class CreativeWorkListViewController: UIViewController {
     definesPresentationContext = true
 
     tableView.dataSource = self
+    tableView.delegate = self
 
     navigationItem.searchController = searchController
     navigationItem.title = "CreativeWorkFindr"

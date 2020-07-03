@@ -43,6 +43,9 @@
 		B351246D24A946AF00065A94 /* BookProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B351246B24A946AF00065A94 /* BookProvider.swift */; };
 		B351246F24A946CE00065A94 /* MovieProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B351246E24A946CE00065A94 /* MovieProvider.swift */; };
 		B351247024A946CE00065A94 /* MovieProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B351246E24A946CE00065A94 /* MovieProvider.swift */; };
+		B353DCC624AFD7FB0025555C /* TableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B353DCC524AFD7FB0025555C /* TableViewAnimator.swift */; };
+		B353DCC824AFDE180025555C /* CreativeWorkListViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B353DCC724AFDE180025555C /* CreativeWorkListViewController+UITableViewDelegate.swift */; };
+		B353DCCA24AFDECB0025555C /* TableViewAnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B353DCC924AFDECB0025555C /* TableViewAnimationFactory.swift */; };
 		B35560AD249EB1D90036A306 /* CreativeWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560AC249EB1D90036A306 /* CreativeWork.swift */; };
 		B35560B0249EB1F00036A306 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560AF249EB1F00036A306 /* Book.swift */; };
 		B35560B2249EB20A0036A306 /* Book+CreativeWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560B1249EB20A0036A306 /* Book+CreativeWork.swift */; };
@@ -120,6 +123,9 @@
 		B351246824A93F0F00065A94 /* CreativeWorkListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeWorkListProvider.swift; sourceTree = "<group>"; };
 		B351246B24A946AF00065A94 /* BookProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookProvider.swift; sourceTree = "<group>"; };
 		B351246E24A946CE00065A94 /* MovieProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieProvider.swift; sourceTree = "<group>"; };
+		B353DCC524AFD7FB0025555C /* TableViewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAnimator.swift; sourceTree = "<group>"; };
+		B353DCC724AFDE180025555C /* CreativeWorkListViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreativeWorkListViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		B353DCC924AFDECB0025555C /* TableViewAnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAnimationFactory.swift; sourceTree = "<group>"; };
 		B35560AC249EB1D90036A306 /* CreativeWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeWork.swift; sourceTree = "<group>"; };
 		B35560AF249EB1F00036A306 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		B35560B1249EB20A0036A306 /* Book+CreativeWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CreativeWork.swift"; sourceTree = "<group>"; };
@@ -224,6 +230,7 @@
 				B34385FA249D71E50033D8CD /* CreativeWorkListViewController.swift */,
 				B34E344424A85F5B004B4CB8 /* CreativeWorkListViewController+UISearchBarDelegate.swift */,
 				B3D891E324A0FBF40005CC03 /* CreativeWorkListViewController+UITableViewDataSource.swift */,
+				B353DCC724AFDE180025555C /* CreativeWorkListViewController+UITableViewDelegate.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -270,6 +277,7 @@
 				B368D85324AC5CC300A15283 /* FetchMovieOperationProvider.swift */,
 				B368D84724AC5C1500A15283 /* ListOperationProvider.swift */,
 				B35560B9249EC6B60036A306 /* Movie.swift */,
+				B353DCC524AFD7FB0025555C /* TableViewAnimator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -317,6 +325,7 @@
 				B35560BE249ECD1A0036A306 /* BooksEndPoint.swift */,
 				B35560B4249EB3F00036A306 /* CreativeWorkFindrError.swift */,
 				B35560C0249ECD450036A306 /* MoviesEndPoint.swift */,
+				B353DCC924AFDECB0025555C /* TableViewAnimationFactory.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 				B35560B5249EB3F00036A306 /* CreativeWorkFindrError.swift in Sources */,
 				B3438629249D7EB20033D8CD /* URLSession+URLSessionProtocol.swift in Sources */,
 				B35560BD249EC6CF0036A306 /* Movie+CreativeWork.swift in Sources */,
+				B353DCC824AFDE180025555C /* CreativeWorkListViewController+UITableViewDelegate.swift in Sources */,
 				B368D84524AC5BB300A15283 /* ListOperationProvidable.swift in Sources */,
 				B343862C249D7EE60033D8CD /* URLSessionDataTaskProtocol.swift in Sources */,
 				B323C2A1249FCF5500DF4986 /* CreativeWorkCell.swift in Sources */,
@@ -447,6 +457,7 @@
 				B368D84824AC5C1500A15283 /* ListOperationProvider.swift in Sources */,
 				B3D891E424A0FBF40005CC03 /* CreativeWorkListViewController+UITableViewDataSource.swift in Sources */,
 				B34E344724A8606A004B4CB8 /* UITableView.swift in Sources */,
+				B353DCCA24AFDECB0025555C /* TableViewAnimationFactory.swift in Sources */,
 				B323C2A624A0011500DF4986 /* CreativeWorkDetailViewController.swift in Sources */,
 				B35560BA249EC6B60036A306 /* Movie.swift in Sources */,
 				B35560B2249EB20A0036A306 /* Book+CreativeWork.swift in Sources */,
@@ -463,6 +474,7 @@
 				B351246C24A946AF00065A94 /* BookProvider.swift in Sources */,
 				B35560C1249ECD450036A306 /* MoviesEndPoint.swift in Sources */,
 				B368D84B24AC5C2C00A15283 /* FetchBookOperationProvidable.swift in Sources */,
+				B353DCC624AFD7FB0025555C /* TableViewAnimator.swift in Sources */,
 				B34385F9249D71E50033D8CD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
