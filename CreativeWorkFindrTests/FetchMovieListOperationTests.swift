@@ -10,8 +10,13 @@ class FetchMovieListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchMovieListOperation incorrectly parsed an incomplete list of ids")
-    XCTAssertEqual(op.error, .invalidSearchTerm(term: ""), "FetchMovieListOperation did not communicate an invalid search term error")
+    switch op.result {
+    case .some(.failure(let error)):
+      let expected: CreativeWorkFindrError = .invalidSearchTerm(term: "")
+      XCTAssertEqual(error, expected, "FetchMovieListOperationTests did not communicate an invalid search term error")
+    default:
+      XCTFail("FetchMovieListOperationTests incorrectly parsed an incomplete list of ids")
+    }
   }
 
   func testParseError() {
@@ -20,8 +25,13 @@ class FetchMovieListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchMovieListOperation incorrectly parsed an incomplete list of ids")
-    XCTAssertEqual(op.error, .parseError, "FetchMovieListOperation did not communicate a parsing error")
+    switch op.result {
+    case .some(.failure(let parseError)):
+      let expected: CreativeWorkFindrError = .parseError
+      XCTAssertEqual(parseError, expected, "FetchMovieListOperation did not communicate a parsing error")
+    default:
+      XCTFail("FetchMovieListOperation incorrectly parsed an incomplete list of ids")
+    }
   }
 
   func testEmptyResponse() {
@@ -37,8 +47,12 @@ class FetchMovieListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchMovieListOperation was unable to handle an empty list")
-    XCTAssertNil(op.error, "FetchMovieListOperation incorrectly communicated an error for an empty list")
+    switch op.result {
+    case .some(.success(let movies)):
+      XCTAssertEqual(movies.count, 0, "FetchMovieListOperation was unable to handle an empty list")
+    default:
+      XCTFail("FetchMovieListOperation incorrectly communicated an error for an empty list")
+    }
   }
 
   func testSuccess() {
@@ -77,8 +91,12 @@ class FetchMovieListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 3, "FetchMovieListOperation was unable to parse a valid response")
-    XCTAssertNil(op.error, "FetchMovieListOperation incorrectly communicated a parsing error")
-    XCTAssertEqual(op.results.first, "tt1677720")
+    switch op.result {
+    case .some(.success(let movies)):
+      XCTAssertEqual(movies.count, 3, "FetchMovieListOperation was unable to parse a valid response")
+      XCTAssertEqual(movies.first, "tt1677720")
+    default:
+      XCTFail("FetchMovieListOperation incorrectly communicated a parsing error")
+    }
   }
 }

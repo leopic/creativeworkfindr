@@ -13,8 +13,11 @@ fileprivate struct Response: Codable {
 }
 
 class FetchMovieListOperation: AsyncOperation {
-  var results = [String]()
-  var error: CreativeWorkFindrError?
+  var result: Result<[String], CreativeWorkFindrError>! {
+    didSet {
+      finish()
+    }
+  }
 
   private var maxResults: Int
   private var searchTerm: String!
@@ -48,15 +51,13 @@ class FetchMovieListOperation: AsyncOperation {
   override func main() {
     switch buildRequest() {
     case .failure(let error):
-      self.error = error
-      finish()
+      self.result = .failure(error)
     case .success(let request):
       session.dataTask(with: request) { [weak self] (data, response, error) in
         guard let self = self else { return }
 
         guard let data = data else {
-          self.error = .errorFetchingMovieList
-          self.finish()
+          self.result = .failure(.errorFetchingMovieList)
           return
         }
 
@@ -66,9 +67,9 @@ class FetchMovieListOperation: AsyncOperation {
           if let error = response.error {
             switch error {
             case "Movie not found!":
-              print("No movies found, continue")
+              self.result = .success([])
             default:
-              self.error = .errorFetchingMovieList
+              self.result = .failure(.errorFetchingMovieList)
             }
 
             self.finish()
@@ -77,14 +78,12 @@ class FetchMovieListOperation: AsyncOperation {
           let results = response.movies?
             .filter({ $0.thumbnailURL != nil })
             .compactMap({ $0 })
-            .map({ $0.imdbId }) ?? self.results
+            .map({ $0.imdbId }) ?? [String]()
 
-          self.results = Array(results.prefix(self.maxResults))
+          self.result = .success(Array(results.prefix(self.maxResults)))
         } catch {
-          self.error = .parseError
+          self.result = .failure(.parseError)
         }
-
-        self.finish()
       }.resume()
     }
   }

@@ -3,15 +3,20 @@ import XCTest
 @testable import CreativeWorkFindr
 
 class FetchBookListOperationTests: XCTestCase {
-  let testQueue = OperationQueue()
+  private let testQueue = OperationQueue()
 
   func testInvalidSearchTerm() {
     let op = FetchBookListOperation(searchTerm: "")
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchBookListOperation incorrectly parsed an incomplete list of ids")
-    XCTAssertEqual(op.error, .invalidSearchTerm(term: ""), "FetchBookListOperation did not communicate an invalid search term error")
+    switch op.result {
+    case .some(.failure(let error)):
+      let expected: CreativeWorkFindrError = .invalidSearchTerm(term: "")
+      XCTAssertEqual(error, expected, "FetchBookListOperation did not communicate an invalid search term error")
+    default:
+      XCTFail("FetchBookListOperation incorrectly parsed an incomplete list of ids")
+    }
   }
 
   func testParseError() {
@@ -20,8 +25,13 @@ class FetchBookListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchBookListOperation incorrectly parsed an incomplete list of ids")
-    XCTAssertEqual(op.error, .parseError, "FetchBookListOperation did not communicate a parsing error")
+    switch op.result {
+    case .some(.failure(let parseError)):
+      let expected: CreativeWorkFindrError = .parseError
+      XCTAssertEqual(parseError, expected, "FetchBookListOperation did not communicate a parsing error")
+    default:
+      XCTFail("FetchBookListOperation incorrectly parsed an incomplete list of ids")
+    }
   }
 
   func testEmptyResponse() {
@@ -39,8 +49,12 @@ class FetchBookListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 0, "FetchBookListOperation was unable to handle an empty list")
-    XCTAssertNil(op.error, "FetchBookListOperation incorrectly communicated an error for an empty list")
+    switch op.result {
+    case .some(.success(let books)):
+      XCTAssertEqual(books.count, 0, "FetchBookListOperation was unable to handle an empty list")
+    default:
+      XCTFail("FetchBookListOperation incorrectly communicated an error for an empty list")
+    }
   }
 
   func testSuccess() {
@@ -370,7 +384,11 @@ class FetchBookListOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertEqual(op.results.count, 5, "FetchBookListOperation was unable to parse a valid response")
-    XCTAssertNil(op.error, "FetchBookListOperation incorrectly communicated a parsing error")
+    switch op.result {
+    case .some(.success(let books)):
+      XCTAssertEqual(books.count, 5, "FetchBookListOperation was unable to parse a valid response")
+    default:
+      XCTFail("FetchBookListOperation incorrectly communicated a parsing error")
+    }
   }
 }

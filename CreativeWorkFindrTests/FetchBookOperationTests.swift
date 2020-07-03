@@ -11,8 +11,17 @@ class FetchBookOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertNil(op.book, "FetchBookOperation incorrectly parsed an incomplete book")
-    XCTAssertEqual(op.error, .parseError, "FetchBookOperation did not communicate a parsing error")
+    guard let result = op.result else {
+      XCTFail("FetchBookOperation failed to yield a result")
+      return
+    }
+
+    switch result {
+    case .success(_):
+      XCTFail("FetchBookOperation incorrectly parsed an incomplete book")
+    case .failure(let error):
+      XCTAssertEqual(error, .parseError, "FetchBookOperation did not communicate a parsing error")
+    }
   }
 
   func testSuccess() {
@@ -65,7 +74,16 @@ class FetchBookOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertNil(op.error, "FetchBookOperation incorrectly communicated a parsing error")
-    XCTAssertEqual(op.book.title, "Star Wars Build Your Own", "FetchBookOperation failed to parse a valid book")
+    guard let result = op.result else {
+      XCTFail("FetchBookOperation failed to yield a result")
+      return
+    }
+
+    switch result {
+    case .success(let book):
+      XCTAssertEqual(book.title, "Star Wars Build Your Own", "FetchBookOperation failed to parse a valid book")
+    case .failure(_):
+      XCTFail("FetchBookOperation incorrectly communicated a parsing error")
+    }
   }
 }

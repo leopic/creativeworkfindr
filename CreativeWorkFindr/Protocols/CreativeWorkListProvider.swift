@@ -1,6 +1,5 @@
 import Foundation
 
-protocol CreativeWorkListProvider: Operation {
-  var results: [String] { get }
-  var error: CreativeWorkFindrError? { get }
+protocol CreativeWorkListProvider: AsyncOperation {
+  var result: Result<[String], CreativeWorkFindrError>! { get }
 }

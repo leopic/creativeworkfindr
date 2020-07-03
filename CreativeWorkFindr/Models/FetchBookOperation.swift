@@ -26,8 +26,11 @@ fileprivate struct Response: Decodable {
 }
 
 class FetchBookOperation: AsyncOperation {
-  var book: Book!
-  var error: CreativeWorkFindrError?
+  var result: Result<Book, CreativeWorkFindrError>! {
+    didSet {
+      finish()
+    }
+  }
 
   private var openLibraryId: String!
   private var session: URLSessionProtocol!
@@ -51,25 +54,21 @@ class FetchBookOperation: AsyncOperation {
   }
 
   override func main() {
-    let request = self.buildRequest()
-
+    let request = buildRequest()
     session.dataTask(with: request) { [weak self] (data, response, error) in
       guard let self = self else { return }
 
       guard let data = data else {
-        self.error = .errorFetchingBook(id: self.openLibraryId)
-        self.finish()
+        self.result = .failure(.errorFetchingBook(id: self.openLibraryId))
         return
       }
 
       do {
         let response = try self.decoder.decode(Response.self, from: data)
-        self.book = response.book
+        self.result = .success(response.book)
       } catch {
-        self.error = .parseError
+        self.result = .failure(.parseError)
       }
-
-      self.finish()
     }.resume()
   }
 }

@@ -3,8 +3,7 @@ import Foundation
 fileprivate typealias Response = Movie
 
 class FetchMovieOperation: AsyncOperation {
-  var movie: Movie!
-  var error: CreativeWorkFindrError?
+  var result: Result<Movie, CreativeWorkFindrError>!
 
   private var imdbId: String!
   private var session: URLSessionProtocol!
@@ -32,16 +31,16 @@ class FetchMovieOperation: AsyncOperation {
       guard let self = self else { return }
 
       guard let data = data else {
-        self.error = .errorFetchingMovie(id: self.imdbId)
+        self.result = .failure(.errorFetchingMovie(id: self.imdbId))
         self.finish()
         return
       }
 
       do {
         let response = try self.decoder.decode(Response.self, from: data)
-        self.movie = response
+        self.result = .success(response)
       } catch {
-        self.error = .parseError
+        self.result = .failure(.parseError)
       }
 
       self.finish()

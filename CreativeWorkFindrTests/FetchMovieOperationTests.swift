@@ -1,7 +1,7 @@
 import XCTest
 
 class FetchMovieOperationTests: XCTestCase {
-  let testQueue = OperationQueue()
+  private let testQueue = OperationQueue()
 
   func testParseError() {
     let mockURLSession = MockURLSession(nextData: "{}".data(using: .utf8)!)
@@ -9,8 +9,17 @@ class FetchMovieOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertNil(op.movie, "FetchMovieOperation incorrectly parsed an incomplete book")
-    XCTAssertEqual(op.error, .parseError, "FetchMovieOperation did not communicate a parsing error")
+    guard let result = op.result else {
+      XCTFail("FetchMovieOperation failed to yield a result")
+      return
+    }
+
+    switch result {
+    case .success(_):
+      XCTFail("FetchMovieOperation incorrectly parsed an incomplete movie")
+    case .failure(let error):
+      XCTAssertEqual(error, .parseError, "FetchMovieOperation did not communicate a parsing error")
+    }
   }
 
   func testSuccess() {
@@ -62,7 +71,17 @@ class FetchMovieOperationTests: XCTestCase {
 
     testQueue.addOperations([op], waitUntilFinished: true)
 
-    XCTAssertNil(op.error, "FetchMovieOperation incorrectly communicated a parsing error")
-    XCTAssertEqual(op.movie?.title, "The Lord of the Rings: The Fellowship of the Ring", "FetchMovieOperation failed to parse a valid book")
+    guard let result = op.result else {
+      XCTFail("FetchMovieOperation failed to yield a result")
+      return
+    }
+
+    switch result {
+    case .success(let movie):
+      let expected = "The Lord of the Rings: The Fellowship of the Ring"
+      XCTAssertEqual(movie.title, expected, "FetchMovieOperation failed to parse a valid movie")
+    case .failure(_):
+      XCTFail("FetchMovieOperation incorrectly communicated a parsing error")
+    }
   }
 }

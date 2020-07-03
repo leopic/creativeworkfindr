@@ -20,8 +20,11 @@ fileprivate struct Response: Codable {
 }
 
 class FetchBookListOperation: AsyncOperation {
-  var results = [String]()
-  var error: CreativeWorkFindrError?
+  var result: Result<[String], CreativeWorkFindrError>! {
+    didSet {
+      finish()
+    }
+  }
 
   private var maxResults: Int
   private var searchTerm: String!
@@ -56,27 +59,23 @@ class FetchBookListOperation: AsyncOperation {
 
     switch requestAttempt {
     case .failure(let error):
-      self.error = error
-      finish()
+      self.result = .failure(error)
     case .success(let request):
       session.dataTask(with: request) { [weak self] (data, response, error) in
         guard let self = self else { return }
 
         guard let data = data else {
-          self.error = .errorFetchingBookList
-          self.finish()
+          self.result = .failure(.errorFetchingBookList)
           return
         }
 
         do {
           let response = try self.decoder.decode(Response.self, from: data)
           let valid = response.ids.filter { $0.id != nil }.compactMap { $0 }
-          self.results = Array(valid.prefix(self.maxResults)).map { $0.id! }
+          self.result = .success(Array(valid.prefix(self.maxResults)).map { $0.id! })
         } catch {
-          self.error = .parseError
+          self.result = .failure(.parseError)
         }
-
-        self.finish()
       }.resume()
     }
   }
