@@ -19,12 +19,14 @@ final class CreativeWorkStore {
 
   typealias Works = (books: [Book], movies: [Movie])
   func find(byTerm: String) -> Result<Works, CreativeWorkFindrError> {
-    guard Self.validateSearch(term: byTerm) else {
-      return .failure(.invalidSearchTerm(term: byTerm))
+    let trimmedTerm = byTerm.trimmingCharacters(in: .whitespaces)
+
+    guard Self.validateSearch(term: trimmedTerm) else {
+      return .failure(.invalidSearchTerm(term: trimmedTerm))
     }
 
-    let fetchMovieList = listOperationProvider.fetchMovieListOperation(searchTerm: byTerm)
-    let fetchBookList = listOperationProvider.fetchBookListOperation(searchTerm: byTerm)
+    let fetchMovieList = listOperationProvider.fetchMovieListOperation(searchTerm: trimmedTerm)
+    let fetchBookList = listOperationProvider.fetchBookListOperation(searchTerm: trimmedTerm)
 
     operationQueue.addOperations([fetchBookList, fetchMovieList], waitUntilFinished: true)
 
@@ -56,6 +58,6 @@ final class CreativeWorkStore {
   }
 
   class func validateSearch(term: String) -> Bool {
-    return term.trimmingCharacters(in: .whitespaces) != ""
+    return term != ""
   }
 }

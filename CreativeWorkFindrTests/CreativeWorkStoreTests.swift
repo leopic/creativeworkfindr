@@ -3,6 +3,17 @@
   @testable import CreativeWorkFindr
 
   class CreativeWorkStoreTests: XCTestCase {
+    func testSearchQuery() {
+      let store = CreativeWorkStore()
+
+      switch store.find(byTerm: "  ") {
+      case .failure(let error):
+        XCTAssertEqual(error, .invalidSearchTerm(term: ""))
+      default:
+        XCTFail(".find failed to return an empty result set")
+      }
+    }
+
     func testEmptyResults() {
       let movieListProvider = MockWorkListProvider(results: [])
       let bookListProvider = MockWorkListProvider(results: [])
