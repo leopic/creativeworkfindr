@@ -3,31 +3,18 @@ import Foundation
 final class CreativeWorkStore {
   private let operationQueue = OperationQueue()
 
-  private var bookListProvider: CreativeWorkListProvider!
-  private var bookProvider: BookProvider!
-  
-  private var movieListProvider: CreativeWorkListProvider!
-  private var movieProvider: MovieProvider!
+  private let listOperationProvider: ListOperationProvidable
+  private let fetchMovieOperationProvider: FetchMovieOperationProvidable
+  private let fetchBookOperationProvider: FetchBookOperationProvidable
 
-  private var verifyErrors: CreativeWorkFindrError? {
-    if bookListProvider.error != nil && movieListProvider.error != nil {
-      return .generalFailure
-    }
-
-    return nil
-  }
-
-  convenience init(
-    bookListProvider: CreativeWorkListProvider,
-    bookProvider: BookProvider,
-    movieListProvider: CreativeWorkListProvider,
-    movieProvider: MovieProvider
+  init(
+    listOperationProvider: ListOperationProvidable = ListOperationProvider(),
+    fetchMovieOperationProvider: FetchMovieOperationProvidable = FetchMovieOperationProvider(),
+    fetchBookOperationProvider: FetchBookOperationProvidable = FetchBookOperationProvider()
   ) {
-    self.init()
-    self.bookListProvider = bookListProvider
-    self.bookProvider = bookProvider
-    self.movieListProvider = movieListProvider
-    self.movieProvider = movieProvider
+    self.listOperationProvider = listOperationProvider
+    self.fetchMovieOperationProvider = fetchMovieOperationProvider
+    self.fetchBookOperationProvider = fetchBookOperationProvider
   }
 
   typealias Works = (books: [Book], movies: [Movie])
@@ -36,31 +23,34 @@ final class CreativeWorkStore {
       return .failure(.invalidSearchTerm(term: byTerm))
     }
 
-    self.movieListProvider = self.movieListProvider ?? FetchMovieListOperation(searchTerm: byTerm)
+    let fetchMovieList = listOperationProvider.fetchMovieListOperation(searchTerm: byTerm)
+    let fetchBookList = listOperationProvider.fetchBookListOperation(searchTerm: byTerm)
 
-    self.bookListProvider = self.bookListProvider ?? FetchBookListOperation(searchTerm: byTerm)
+    operationQueue.addOperations([fetchBookList, fetchMovieList], waitUntilFinished: true)
 
-    operationQueue.addOperations([bookListProvider!, movieListProvider!], waitUntilFinished: true)
-
-    if let error = verifyErrors {
-      return .failure(error)
+    guard let fetchBookListResult = fetchBookList.result,
+          let fetchMovieListResult = fetchMovieList.result else {
+      return .failure(.generalFailure)
     }
 
-    let fetchBookOperations = bookListProvider!.results.map {
-      self.bookProvider ?? FetchBookOperation(openLibraryId: $0)
-    }
-
-    let fetchMovieOperations = movieListProvider!.results.map {
-      self.movieProvider ?? FetchMovieOperation(imdbId: $0)
+    var fetchBookOperations = [BookProvider]()
+    var fetchMovieOperations = [MovieProvider]()
+    switch (fetchBookListResult, fetchMovieListResult) {
+    case (.failure, .failure):
+      return .failure(.generalFailure)
+    case(.success(let bookList), .success(let movieList)):
+      fetchBookOperations = bookList.compactMap { fetchBookOperationProvider.fetchBookOperation(openLibraryId: $0) }
+      fetchMovieOperations = movieList.compactMap { fetchMovieOperationProvider.fetchMovieOperation(imdbId: $0) }
+    case (.success(let bookList), _):
+      fetchBookOperations = bookList.compactMap { fetchBookOperationProvider.fetchBookOperation(openLibraryId: $0) }
+    case (_, .success(let movieList)):
+      fetchMovieOperations = movieList.compactMap { fetchMovieOperationProvider.fetchMovieOperation(imdbId: $0) }
     }
 
     operationQueue.addOperations(fetchBookOperations + fetchMovieOperations, waitUntilFinished: true)
 
-    let books = fetchBookOperations.filter { $0.error == nil }.map { $0.book }.compactMap { $0 }
-    let movies = fetchMovieOperations.filter { $0.error == nil }.map { $0.movie }.compactMap { $0 }
-
-    self.movieListProvider = nil
-    self.bookListProvider = nil
+    let books = fetchBookOperations.compactMap { try? $0.result.get() }
+    let movies = fetchMovieOperations.compactMap { try? $0.result.get() }
 
     return .success((books: books, movies: movies))
   }

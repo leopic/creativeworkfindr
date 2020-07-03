@@ -54,6 +54,18 @@
 		B35560C1249ECD450036A306 /* MoviesEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560C0249ECD450036A306 /* MoviesEndPoint.swift */; };
 		B35560C5249ED91B0036A306 /* FetchBookOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560C4249ED91B0036A306 /* FetchBookOperation.swift */; };
 		B35AC9C4249F1DC100D8182B /* FetchMovieOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35AC9C3249F1DC100D8182B /* FetchMovieOperation.swift */; };
+		B368D84524AC5BB300A15283 /* ListOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84424AC5BB300A15283 /* ListOperationProvidable.swift */; };
+		B368D84624AC5BB300A15283 /* ListOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84424AC5BB300A15283 /* ListOperationProvidable.swift */; };
+		B368D84824AC5C1500A15283 /* ListOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84724AC5C1500A15283 /* ListOperationProvider.swift */; };
+		B368D84B24AC5C2C00A15283 /* FetchBookOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84A24AC5C2C00A15283 /* FetchBookOperationProvidable.swift */; };
+		B368D84C24AC5C2C00A15283 /* FetchBookOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84A24AC5C2C00A15283 /* FetchBookOperationProvidable.swift */; };
+		B368D84E24AC5C5700A15283 /* FetchBookOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84D24AC5C5700A15283 /* FetchBookOperationProvider.swift */; };
+		B368D85124AC5CA900A15283 /* FetchMovieOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D85024AC5CA900A15283 /* FetchMovieOperationProvidable.swift */; };
+		B368D85224AC5CA900A15283 /* FetchMovieOperationProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D85024AC5CA900A15283 /* FetchMovieOperationProvidable.swift */; };
+		B368D85424AC5CC300A15283 /* FetchMovieOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D85324AC5CC300A15283 /* FetchMovieOperationProvider.swift */; };
+		B368D85524AC5D2100A15283 /* ListOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84724AC5C1500A15283 /* ListOperationProvider.swift */; };
+		B368D85624AC5D2700A15283 /* FetchMovieOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D85324AC5CC300A15283 /* FetchMovieOperationProvider.swift */; };
+		B368D85724AC5D2C00A15283 /* FetchBookOperationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368D84D24AC5C5700A15283 /* FetchBookOperationProvider.swift */; };
 		B3D891D424A0EB9A0005CC03 /* FetchBookOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D891D324A0EB9A0005CC03 /* FetchBookOperationTests.swift */; };
 		B3D891D524A0EBAD0005CC03 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3438620249D7C8D0033D8CD /* AsyncOperation.swift */; };
 		B3D891D624A0EBC90005CC03 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35560AF249EB1F00036A306 /* Book.swift */; };
@@ -119,6 +131,12 @@
 		B35560C0249ECD450036A306 /* MoviesEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesEndPoint.swift; sourceTree = "<group>"; };
 		B35560C4249ED91B0036A306 /* FetchBookOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookOperation.swift; sourceTree = "<group>"; };
 		B35AC9C3249F1DC100D8182B /* FetchMovieOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovieOperation.swift; sourceTree = "<group>"; };
+		B368D84424AC5BB300A15283 /* ListOperationProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOperationProvidable.swift; sourceTree = "<group>"; };
+		B368D84724AC5C1500A15283 /* ListOperationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOperationProvider.swift; sourceTree = "<group>"; };
+		B368D84A24AC5C2C00A15283 /* FetchBookOperationProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookOperationProvidable.swift; sourceTree = "<group>"; };
+		B368D84D24AC5C5700A15283 /* FetchBookOperationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookOperationProvider.swift; sourceTree = "<group>"; };
+		B368D85024AC5CA900A15283 /* FetchMovieOperationProvidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovieOperationProvidable.swift; sourceTree = "<group>"; };
+		B368D85324AC5CC300A15283 /* FetchMovieOperationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovieOperationProvider.swift; sourceTree = "<group>"; };
 		B3D891D324A0EB9A0005CC03 /* FetchBookOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBookOperationTests.swift; sourceTree = "<group>"; };
 		B3D891DD24A0F02E0005CC03 /* FetchMovieListOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovieListOperationTests.swift; sourceTree = "<group>"; };
 		B3D891E324A0FBF40005CC03 /* CreativeWorkListViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreativeWorkListViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
@@ -246,8 +264,11 @@
 				B35560AF249EB1F00036A306 /* Book.swift */,
 				B3438622249D7CBC0033D8CD /* FetchBookListOperation.swift */,
 				B35560C4249ED91B0036A306 /* FetchBookOperation.swift */,
+				B368D84D24AC5C5700A15283 /* FetchBookOperationProvider.swift */,
 				B35560B7249EB5240036A306 /* FetchMovieListOperation.swift */,
 				B35AC9C3249F1DC100D8182B /* FetchMovieOperation.swift */,
+				B368D85324AC5CC300A15283 /* FetchMovieOperationProvider.swift */,
+				B368D84724AC5C1500A15283 /* ListOperationProvider.swift */,
 				B35560B9249EC6B60036A306 /* Movie.swift */,
 			);
 			path = Models;
@@ -267,6 +288,9 @@
 				B351246B24A946AF00065A94 /* BookProvider.swift */,
 				B35560AC249EB1D90036A306 /* CreativeWork.swift */,
 				B351246824A93F0F00065A94 /* CreativeWorkListProvider.swift */,
+				B368D84A24AC5C2C00A15283 /* FetchBookOperationProvidable.swift */,
+				B368D85024AC5CA900A15283 /* FetchMovieOperationProvidable.swift */,
+				B368D84424AC5BB300A15283 /* ListOperationProvidable.swift */,
 				B351246E24A946CE00065A94 /* MovieProvider.swift */,
 				B343862B249D7EE60033D8CD /* URLSessionDataTaskProtocol.swift */,
 				B3438625249D7E230033D8CD /* URLSessionProtocol.swift */,
@@ -406,17 +430,21 @@
 			files = (
 				B3D891E824A0FCE00005CC03 /* Int+CreativeWorkListViewControllerSection.swift in Sources */,
 				B3438626249D7E230033D8CD /* URLSessionProtocol.swift in Sources */,
+				B368D84E24AC5C5700A15283 /* FetchBookOperationProvider.swift in Sources */,
 				B35AC9C4249F1DC100D8182B /* FetchMovieOperation.swift in Sources */,
 				B35560B5249EB3F00036A306 /* CreativeWorkFindrError.swift in Sources */,
 				B3438629249D7EB20033D8CD /* URLSession+URLSessionProtocol.swift in Sources */,
 				B35560BD249EC6CF0036A306 /* Movie+CreativeWork.swift in Sources */,
+				B368D84524AC5BB300A15283 /* ListOperationProvidable.swift in Sources */,
 				B343862C249D7EE60033D8CD /* URLSessionDataTaskProtocol.swift in Sources */,
 				B323C2A1249FCF5500DF4986 /* CreativeWorkCell.swift in Sources */,
 				B35560BF249ECD1A0036A306 /* BooksEndPoint.swift in Sources */,
 				B351246F24A946CE00065A94 /* MovieProvider.swift in Sources */,
+				B368D85124AC5CA900A15283 /* FetchMovieOperationProvidable.swift in Sources */,
 				B343862E249D7F600033D8CD /* URLSessionDataTask+URLSessionDataTaskProtocol.swift in Sources */,
 				B34385FB249D71E50033D8CD /* CreativeWorkListViewController.swift in Sources */,
 				B35560C5249ED91B0036A306 /* FetchBookOperation.swift in Sources */,
+				B368D84824AC5C1500A15283 /* ListOperationProvider.swift in Sources */,
 				B3D891E424A0FBF40005CC03 /* CreativeWorkListViewController+UITableViewDataSource.swift in Sources */,
 				B34E344724A8606A004B4CB8 /* UITableView.swift in Sources */,
 				B323C2A624A0011500DF4986 /* CreativeWorkDetailViewController.swift in Sources */,
@@ -425,6 +453,7 @@
 				B3438623249D7CBC0033D8CD /* FetchBookListOperation.swift in Sources */,
 				B343861F249D7C470033D8CD /* CreativeWorkStore.swift in Sources */,
 				B35560B8249EB5240036A306 /* FetchMovieListOperation.swift in Sources */,
+				B368D85424AC5CC300A15283 /* FetchMovieOperationProvider.swift in Sources */,
 				B34385F7249D71E50033D8CD /* AppDelegate.swift in Sources */,
 				B35560B0249EB1F00036A306 /* Book.swift in Sources */,
 				B35560AD249EB1D90036A306 /* CreativeWork.swift in Sources */,
@@ -433,6 +462,7 @@
 				B3438621249D7C8D0033D8CD /* AsyncOperation.swift in Sources */,
 				B351246C24A946AF00065A94 /* BookProvider.swift in Sources */,
 				B35560C1249ECD450036A306 /* MoviesEndPoint.swift in Sources */,
+				B368D84B24AC5C2C00A15283 /* FetchBookOperationProvidable.swift in Sources */,
 				B34385F9249D71E50033D8CD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,11 +471,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B368D85524AC5D2100A15283 /* ListOperationProvider.swift in Sources */,
+				B368D85624AC5D2700A15283 /* FetchMovieOperationProvider.swift in Sources */,
 				B351246424A92D9B00065A94 /* FetchMovieOperation.swift in Sources */,
 				B3D891D424A0EB9A0005CC03 /* FetchBookOperationTests.swift in Sources */,
 				B34A56C524A0E9C30031F089 /* URLSessionProtocol.swift in Sources */,
 				B34A56C424A0E96D0031F089 /* MockURLSession.swift in Sources */,
 				B3D891E224A0F3480005CC03 /* Movie+CreativeWork.swift in Sources */,
+				B368D84C24AC5C2C00A15283 /* FetchBookOperationProvidable.swift in Sources */,
 				B3D891E124A0F0B10005CC03 /* MoviesEndPoint.swift in Sources */,
 				B3D891D924A0EBDE0005CC03 /* URLSessionDataTask+URLSessionDataTaskProtocol.swift in Sources */,
 				B34A56C924A0EB4E0031F089 /* FetchBookOperation.swift in Sources */,
@@ -457,13 +490,16 @@
 				B351246724A93CAD00065A94 /* CreativeWorkStoreTests.swift in Sources */,
 				B3D891D824A0EBDB0005CC03 /* URLSession+URLSessionProtocol.swift in Sources */,
 				B3D891D624A0EBC90005CC03 /* Book.swift in Sources */,
+				B368D84624AC5BB300A15283 /* ListOperationProvidable.swift in Sources */,
 				B351246524A93C9D00065A94 /* CreativeWorkStore.swift in Sources */,
 				B34A56C824A0EA2B0031F089 /* CreativeWork.swift in Sources */,
 				B3D891D524A0EBAD0005CC03 /* AsyncOperation.swift in Sources */,
 				B34A56C724A0EA050031F089 /* CreativeWorkFindrError.swift in Sources */,
+				B368D85724AC5D2C00A15283 /* FetchBookOperationProvider.swift in Sources */,
 				B3D891DF24A0F08F0005CC03 /* FetchMovieListOperation.swift in Sources */,
 				B351246124A92AD000065A94 /* FetchBookListOperation.swift in Sources */,
 				B3D891E024A0F0A20005CC03 /* Movie.swift in Sources */,
+				B368D85224AC5CA900A15283 /* FetchMovieOperationProvidable.swift in Sources */,
 				B351246024A929BF00065A94 /* FetchBookListOperationTests.swift in Sources */,
 				B351246A24A943D800065A94 /* CreativeWorkListProvider.swift in Sources */,
 				B351246324A92CFE00065A94 /* FetchMovieOperationTests.swift in Sources */,
