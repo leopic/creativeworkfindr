@@ -29,7 +29,7 @@ class CreativeWorkDetailViewController: UIViewController {
           self.image.sd_setImage(with: thumbnailURL, placeholderImage: UIImage(named: "no-image"))
         }
 
-        self.detailsButton.isHidden = self.work.url == nil
+        self.detailsButton.heightAnchor.constraint(equalToConstant: 0.0).isActive = self.work.url == nil
       }
     }
   }
